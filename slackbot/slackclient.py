@@ -117,15 +117,18 @@ class SlackClient(object):
                                  filename=fname,
                                  initial_comment=comment)
 
-    def send_message(self, channel, message, attachments=None, as_user=True):
+    def send_message(self, channel, message, parse=None, attachments=None, as_user=True, unfurl=True):
         self.webapi.chat.post_message(
                 channel,
                 message,
                 username=self.login_data['self']['name'],
                 icon_url=self.bot_icon,
                 icon_emoji=self.bot_emoji,
+                parse=parse,
                 attachments=attachments,
-                as_user=as_user)
+                as_user=as_user,
+                unfurl_links=unfurl,
+                unfurl_media=unfurl)
 
     def get_channel(self, channel_id):
         return Channel(self, self.channels[channel_id])

@@ -214,7 +214,7 @@ class Message(object):
         self.send_webapi(text, attachments=attachments, as_user=as_user)
 
     @unicode_compact
-    def send_webapi(self, text, attachments=None, as_user=True):
+    def send_webapi(self, text,  attachments=None, parse=None, unfurl=True, as_user=True):
         """
             Send a reply using Web API
 
@@ -225,6 +225,8 @@ class Message(object):
             self._body['channel'],
             text,
             attachments=attachments,
+            parse=parse,
+            unfurl=unfurl,
             as_user=as_user)
 
     @unicode_compact
