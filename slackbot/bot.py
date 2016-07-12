@@ -28,13 +28,17 @@ class Bot(object):
         self._dispatcher = MessageDispatcher(self._client, self._plugins,
                                              settings.ERRORS_TO)
 
-    def run(self):
+    def run(self, threaded=False):
         self._plugins.init_plugins()
         self._dispatcher.start()
         self._client.rtm_connect()
         _thread.start_new_thread(self._keepactive, tuple())
         logger.info('connected to slack RTM api')
-        self._dispatcher.loop()
+
+        if threaded:
+            _thread.start_new_thread(self._dispatcher.loop, tuple())
+        else:
+            self._dispatcher.loop()
 
     def _keepactive(self):
         logger.info('keep active thread started')
