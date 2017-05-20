@@ -117,12 +117,12 @@ class SlackClient(object):
                                  filename=fname,
                                  initial_comment=comment)
 
-    def send_message(self, channel, message, parse=None, attachments=None, as_user=True, unfurl=True):
+    def send_message(self, channel, message, parse=None, attachments=None, as_user=True, unfurl=True, icon_url=None):
         self.webapi.chat.post_message(
                 channel,
                 message,
                 username=self.login_data['self']['name'],
-                icon_url=self.bot_icon,
+                icon_url=icon_url if icon_url else self.bot_icon,
                 icon_emoji=self.bot_emoji,
                 parse=parse,
                 attachments=attachments,
